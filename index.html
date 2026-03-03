@@ -27,16 +27,14 @@
         .font-script { font-family: 'Great Vibes', cursive; }
         .font-deco { font-family: 'Cinzel Decorative', serif; }
         
-        /* Hero responsivo con imagen centrada */
         .hero-bg {
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), 
                         url('https://images.unsplash.com/photo-1496337589254-7e19d01ced44?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
-            background-attachment: scroll; /* Cambiado de fixed a scroll para mejor rendimiento en móvil */
+            background-attachment: scroll;
         }
 
-        /* Animaciones suaves */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -48,7 +46,6 @@
             transform: translateY(0);
         }
 
-        /* Estilo para los ítems del contador */
         .countdown-item {
             background: white;
             color: var(--dark-bg);
@@ -57,23 +54,28 @@
             padding: 1rem 0.5rem;
         }
 
-        /* Botón de música flotante o destacado */
         .music-player-container {
-            border: 1px solid var(--gold);
-            padding: 10px 20px;
+            border: 2px solid var(--gold);
+            padding: 12px 24px;
             border-radius: 50px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             cursor: pointer;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
             color: white;
-            transition: all 0.3s ease;
-            z-index: 50;
+            transition: all 0.2s ease;
+            position: relative;
+            z-index: 999;
+            pointer-events: auto !important;
         }
 
-        /* Contenedor de datos bancarios */
+        .music-player-container:active {
+            transform: scale(0.9);
+            background: var(--gold);
+        }
+
         .bank-details-content {
             max-height: 0;
             overflow: hidden;
@@ -86,7 +88,6 @@
             margin-top: 1.5rem;
         }
 
-        /* Divider responsivo */
         .divider-gold {
             height: 1px;
             background: linear-gradient(to right, transparent, var(--gold), transparent);
@@ -102,32 +103,31 @@
 </head>
 <body class="overflow-x-hidden">
 
-    <!-- Audio Player (Archivo local) -->
+    <!-- Audio Player -->
     <audio id="bgMusic" loop preload="auto">
         <source src="musica.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Portada (Hero) -->
-    <section class="relative h-screen flex items-center justify-center hero-bg text-white px-4">
-        <div class="text-center z-10 w-full max-w-4xl mx-auto">
-            <!-- Botón de Música -->
-            <div class="mb-10 fade-in">
-                <button id="musicToggle" class="music-player-container active:scale-95 shadow-lg">
-                    <span id="musicIcon">
-                        <svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-                    </span>
-                    <span id="musicText" class="text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold">Música de Fondo</span>
-                </button>
-            </div>
+    <!-- Portada -->
+    <section class="relative h-screen flex flex-col items-center justify-center hero-bg text-white px-4 text-center">
+        <div class="mb-12 fade-in relative z-[1000]">
+            <button id="musicToggle" class="music-player-container shadow-2xl">
+                <span id="musicIcon">
+                    <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                </span>
+                <span id="musicText" class="text-[11px] md:text-sm uppercase tracking-[0.3em] font-bold">Tocar para música</span>
+            </button>
+        </div>
 
-            <h2 class="text-lg md:text-2xl uppercase tracking-[0.4em] mb-4 text-gold font-light fade-in">Mis Quince</h2>
-            <h1 class="text-5xl md:text-9xl font-script mb-6 drop-shadow-xl fade-in" style="transition-delay: 0.2s">Jadiyi Micaela</h1>
-            
-            <div class="mt-16 md:mt-24 fade-in" style="transition-delay: 0.4s">
-                <a href="#detalles" class="inline-block animate-bounce opacity-80">
-                    <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                </a>
-            </div>
+        <div class="fade-in" style="transition-delay: 0.2s">
+            <h2 class="text-lg md:text-2xl uppercase tracking-[0.4em] mb-4 text-gold font-light">Mis Quince</h2>
+            <h1 class="text-5xl md:text-9xl font-script mb-6 drop-shadow-xl">Jadiyi Micaela</h1>
+        </div>
+        
+        <div class="mt-16 md:mt-24 fade-in" style="transition-delay: 0.4s">
+            <a href="#detalles" class="inline-block animate-bounce opacity-80">
+                <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </a>
         </div>
     </section>
 
@@ -148,10 +148,8 @@
             <h2 class="text-3xl md:text-4xl font-deco text-center mb-12 md:mb-20 uppercase tracking-widest">Coordenadas</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 relative">
-                <!-- Línea divisoria solo en Desktop -->
                 <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-100"></div>
 
-                <!-- Misa -->
                 <div class="text-center fade-in flex flex-col items-center">
                     <div class="mb-6 text-gold">
                         <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
@@ -162,7 +160,6 @@
                     <button onclick="window.open('https://maps.app.goo.gl/RYPiz2v1wX9ht5NQA')" class="w-full md:w-auto px-10 py-4 bg-black text-white text-[10px] uppercase tracking-widest font-bold hover:bg-gray-800 transition-all">Ver Ubicación</button>
                 </div>
 
-                <!-- Celebración -->
                 <div class="text-center fade-in flex flex-col items-center">
                     <div class="mb-6 text-gold">
                         <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
@@ -181,16 +178,16 @@
         <div class="max-w-2xl mx-auto fade-in">
             <h3 class="font-serif text-2xl md:text-3xl mb-4 uppercase tracking-[0.2em]">Código de Vestimenta</h3>
             <p class="text-xl md:text-2xl font-serif italic text-gray-800 mb-8">Elegante</p>
-            <div class="bg-gray-50 p-6 md:p-8 border border-gray-100 rounded-lg">
+            <div class="bg-gray-50 p-6 md:p-8 border border-gray-100 rounded-lg max-w-lg mx-auto">
                 <p class="text-xs md:text-sm text-gray-600 italic leading-relaxed">
-                    <span class="inline-block w-3 h-3 rounded-full bg-pink-500 mr-2"></span>
+                    <span class="inline-block w-4 h-4 rounded-full bg-[#d63384] mr-2 align-middle shadow-sm"></span>
                     Con mucho cariño, solicitamos a nuestras invitadas evitar el uso de tonos <span class="font-bold text-gray-900">fucsia, rosados intensos o similares</span>, ya que son colores reservados exclusivamente para la quinceañera.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Obsequios / Banco -->
+    <!-- Obsequios -->
     <section class="py-20 bg-[#fdf2f2] px-6 text-center">
         <div class="max-w-xl mx-auto fade-in">
             <h3 class="font-serif text-2xl md:text-3xl mb-6 uppercase tracking-widest">Obsequios</h3>
@@ -211,7 +208,6 @@
 
     <!-- Cuenta Regresiva -->
     <section class="py-20 bg-black text-white px-4 text-center">
-        <h3 class="font-deco text-xl md:text-2xl mb-12 uppercase tracking-widest text-gold">La Espera Termina en...</h3>
         <div id="countdown" class="flex justify-center gap-3 md:gap-8 flex-wrap">
             <div class="countdown-item shadow-xl">
                 <span id="days" class="block text-3xl md:text-5xl font-bold">00</span>
@@ -232,12 +228,12 @@
         </div>
     </section>
 
-    <!-- Confirmación WhatsApp -->
+    <!-- Confirmación -->
     <section class="py-24 bg-white px-6 text-center">
         <div class="max-w-xl mx-auto bg-[#fdf2f2] p-10 md:p-14 shadow-2xl fade-in">
             <h3 class="font-deco text-2xl md:text-3xl mb-8 uppercase tracking-widest">Confirmación</h3>
             <p class="text-gray-600 mb-10 italic text-md md:text-lg">Por favor, confírmanos tu asistencia antes del 10 de marzo.</p>
-            <a id="whatsappBtn" href="#" target="_blank" class="inline-flex items-center gap-4 px-10 md:px-14 py-5 bg-black text-white font-bold uppercase tracking-[0.2em] text-[10px] shadow-xl hover:bg-gold transition-all active:scale-95">Confirmar vía WhatsApp</a>
+            <a id="whatsappBtn" href="#" target="_blank" class="inline-flex items-center gap-4 px-10 md:px-14 py-5 bg-black text-white font-bold uppercase tracking-[0.2em] text-[10px] shadow-xl hover:bg-gold transition-all">Confirmar vía WhatsApp</a>
         </div>
     </section>
 
@@ -248,66 +244,62 @@
     </footer>
 
     <script>
-        // --- Elementos ---
-        const musicBtn = document.getElementById('musicToggle');
         const audio = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicToggle');
         const musicText = document.getElementById('musicText');
         const musicIcon = document.getElementById('musicIcon');
         let isPlaying = false;
 
-        // --- Música Responsiva y Robusta ---
-        const handleMusic = () => {
+        // Diagnóstico: Verificar si el archivo carga
+        audio.addEventListener('error', function(e) {
+            console.error("No se pudo cargar musica.mp3. Revisa el nombre del archivo en GitHub.");
+            musicText.innerText = "Error: Archivo no encontrado";
+        });
+
+        const handleMusic = async () => {
             if (!isPlaying) {
                 musicText.innerText = "Cargando...";
-                audio.play().then(() => {
+                try {
+                    await audio.play();
                     isPlaying = true;
                     musicText.innerText = "Música Activa";
-                    musicBtn.classList.remove('animate-pulse');
-                    musicIcon.innerHTML = `<svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
-                }).catch(err => {
-                    console.error("Audio block:", err);
-                    musicText.innerText = "Error - Reintenta";
-                });
+                    musicIcon.innerHTML = `<svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+                } catch (err) {
+                    console.error("Error de audio:", err);
+                    musicText.innerText = "Toca de nuevo para activar";
+                }
             } else {
                 audio.pause();
                 isPlaying = false;
-                musicText.innerText = "Música en Pausa";
-                musicIcon.innerHTML = `<svg class="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>`;
+                musicText.innerText = "Pausado";
+                musicIcon.innerHTML = `<svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>`;
             }
         };
 
         musicBtn.addEventListener('click', handleMusic);
 
-        // --- Datos Bancarios Toggle ---
         document.getElementById('toggleBank').addEventListener('click', function() {
             const info = document.getElementById('bankInfo');
             info.classList.toggle('open');
             this.innerText = info.classList.contains('open') ? "Ocultar Datos" : "Ver Datos de Cuenta";
         });
 
-        // --- Cuenta Regresiva ---
         const targetDate = new Date("March 20, 2026 19:00:00").getTime();
-        const countdown = setInterval(() => {
+        setInterval(() => {
             const now = new Date().getTime();
             const diff = targetDate - now;
-            
             if (diff > 0) {
                 document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
                 document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
                 document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
                 document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
-            } else {
-                clearInterval(countdown);
-                document.getElementById('countdown').innerHTML = "<p class='text-gold font-serif text-2xl'>¡Es Hoy!</p>";
             }
         }, 1000);
 
-        // --- WhatsApp (Número corregido) ---
         const phone = "595994561542";
         const message = encodeURIComponent("¡Hola! Confirmo mi asistencia para el XV de Jadi.");
         document.getElementById('whatsappBtn').href = `https://wa.me/${phone}?text=${message}`;
 
-        // --- Observador de Animaciones ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -317,8 +309,4 @@
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     </script>
 </body>
-
 </html>
-
-
-
